@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách người dùng</title>
+  <th:block th:replace="layout::link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout::header"></th:block>
+<div class="container mt-4">
+  <h1>Phân Quyền Người Dùng</h1>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>Tên</th>
+      <th>Username</th>
+      <th>Vai trò</th>
+      <th>Chức năng</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+      <td th:text="${user.id}"></td>
+      <td th:text="${user.email}"></td>
+      <td th:text="${user.name}"></td>
+      <td th:text="${user.username}"></td>
+      <td>
+        <span th:each="role : ${user.roles}">
+          <span th:text="${role.name}"></span><span>--</span>
+        </span>
+      </td>
+      <td>
+        <a th:href="@{/users/edit/{id}(id=${user.id})}">Sửa quyền</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<th:block th:replace="layout::footer"></th:block>
+</body>
+</html>

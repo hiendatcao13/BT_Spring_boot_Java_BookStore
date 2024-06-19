@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="layout::link-css"></th:block>
+    <title>Sửa phân quyền người dùng</title>
+</head>
+<body>
+<th:block th:replace="layout::header"></th:block>
+<div class="container mt-4">
+    <h1>Sửa phân quyền người dùng</h1>
+    <form th:action="@{/users/edit/{id}(id=${user.id})}" th:object="${user}" method="post">
+        <div class="col-6 mb-3">
+            <label class="form-label" for="email">Email:</label>
+            <input class="form-control" type="text" th:field="*{email}" id="email" readonly>
+            <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="name">Tên:</label>
+            <input class="form-control" type="text" th:field="*{name}" id="name" readonly>
+            <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="username">Username:</label>
+            <input class="form-control" type="text" th:field="*{username}" id="username" readonly>
+            <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="password">Mật khẩu:</label>
+            <input class="form-control" type="text" th:field="*{password}" id="password" readonly>
+            <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="roles">Vai trò:</label>
+            <select class="form-control" id="roles" name="roles" th:multiple="multiple">
+                <option th:each="role : ${roles}"
+                        th:value="${role.id}"
+                        th:text="${role.name}"
+                        th:selected="${user.roles.contains(role)}"></option>
+            </select>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Cập nhật">
+    </form>
+    <br>
+    <a th:href="@{/users}">Quay lại danh sách</a>
+</div>
+<th:block th:replace="layout::footer"></th:block>
+</body>
+</html>
